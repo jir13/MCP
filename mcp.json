@@ -1,0 +1,72 @@
+{
+  "name": "blackbox-mcp-server",
+  "version": "1.0.0",
+  "description": "MCP server for analyzing Betaflight blackbox logs",
+  "tools": [
+    {
+      "name": "list_blackbox_logs",
+      "description": "List available blackbox log files (.bbl/.bfl) in a directory",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "directory": {
+            "type": "string",
+            "description": "Directory to search for logs. Defaults to BLACKBOX_LOG_DIR environment variable."
+          }
+        },
+        "required": []
+      }
+    },
+    {
+      "name": "analyze_blackbox_log",
+      "description": "Parse and analyze a blackbox log file, detecting issues like oscillations, propwash, motor problems, and voltage sag. Returns tuning suggestions.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "filePath": {
+            "type": "string",
+            "description": "Path to the .bbl/.bfl file (absolute or relative to log directory)"
+          }
+        },
+        "required": ["filePath"]
+      }
+    },
+    {
+      "name": "get_blackbox_timeseries",
+      "description": "Extract time-series data from a blackbox log for specific channels. Useful for plotting or detailed analysis.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "filePath": {
+            "type": "string",
+            "description": "Path to the .bbl/.bfl file"
+          },
+          "channels": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "Channel names to extract (e.g., ['gyro_roll', 'setpoint_roll', 'motor_0'])"
+          },
+          "maxPoints": {
+            "type": "number",
+            "description": "Maximum number of data points to return (for downsampling). Default: 1000"
+          }
+        },
+        "required": ["filePath", "channels"]
+      }
+    },
+    {
+      "name": "get_available_channels",
+      "description": "Get list of available channel names from a blackbox log file",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "filePath": {
+            "type": "string",
+            "description": "Path to the .bbl/.bfl file"
+          }
+        },
+        "required": ["filePath"]
+      }
+    }
+  ]
+}
