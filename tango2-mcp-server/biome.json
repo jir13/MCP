@@ -1,0 +1,20 @@
+{
+  "$schema": "https://biomejs.dev/schemas/2.0.0/schema.json",
+  "files": {
+    "include": ["src/**/*.ts", "tests/**/*.ts"],
+    "ignore": ["src/legacy/**", "dist/**", "node_modules/**"]
+  },
+  "linter": {
+    "enabled": true,
+    "rules": {
+      "recommended": true,
+      "suspicious": {
+        "noExplicitAny": "warn",
+        "noEmptyCatch": "warn"
+      }
+    }
+  },
+  "formatter": {
+    "enabled": false
+  }
+}
